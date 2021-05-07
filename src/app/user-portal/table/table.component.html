@@ -1,0 +1,153 @@
+<div id="desktop_table_view">
+  <table class="table table-bordered" cdk-table multiTemplateDataRows matSort (matSortChange)="sortData($event)"
+    [dataSource]="dataSource">
+    <ng-container cdkColumnDef="title">
+      <th cdk-header-cell *cdkHeaderCellDef mat-sort-header> Title
+      </th>
+      <td cdk-cell *cdkCellDef="let element"> {{element.title}} </td>
+    </ng-container>
+
+    <ng-container cdkColumnDef="description">
+      <th cdk-header-cell *cdkHeaderCellDef mat-sort-header>Description
+      </th>
+      <td cdk-cell *cdkCellDef="let element"> {{element.description}} </td>
+    </ng-container>
+
+    <ng-container cdkColumnDef="content">
+      <th cdk-header-cell *cdkHeaderCellDef mat-sort-header>Content
+      </th>
+      <td cdk-cell *cdkCellDef="let element"> {{element.content}} </td>
+    </ng-container>
+
+    <ng-container cdkColumnDef="like">
+      <th cdk-header-cell *cdkHeaderCellDef mat-sort-header>Likes</th>
+      <td cdk-cell *cdkCellDef="let element;"> <button class="btn tooltips" (click)="blogLike(element.id)"
+          id="blog_like" [ngbTooltip]="userlikes"><i class="fa fa-thumbs-up"></i>
+          Like({{element.likeItems.length}})</button>
+        <ng-template #userlikes>
+          <span *ngIf="element.likeItems.length>0;else nouserliked">
+            <span *ngFor="let likeItem of element.likeItems">
+              <span>
+                {{likeItem.user.firstName}}
+                <br>
+              </span>
+            </span>
+          </span>
+
+        </ng-template>
+        <ng-template #nouserliked>No User Liked</ng-template>
+      </td>
+    </ng-container>
+
+    <ng-container cdkColumnDef="comment">
+      <th cdk-header-cell *cdkHeaderCellDef mat-sort-header> Comments </th>
+      <td cdk-cell *cdkCellDef="let element;let i=index">
+        <form id="form" class="form" [formGroup]="commentForm" (ngSubmit)="oncommentSubmit(element.id)">
+          <div class="form-group">
+            <textarea class="form-control" (keypress)="commentinput(element.id)" formControlName="comment"
+              id="comments_text" cols="30" rows="5"></textarea>
+          </div>
+          <div>
+            <ng-template #nousercomments>No User Commented</ng-template>
+            <ng-template #usercomments>
+              <span *ngIf="commentItems.length>0;else nousercomments">
+                <span *ngFor="let commentItem of commentItems">
+                  <span>
+                    {{commentItem.user.firstName}}<br>
+                  </span>
+                </span>
+              </span>
+            </ng-template>
+            <button class="btn tooltips2" type="button" (click)="commentModal(element.commentItems,commentsmodal)"
+              (mouseenter)="getCommentUsernames(element.commentItems,i)" [ngbTooltip]="usercomments"
+              id="blog_comments"><i class="fa fa-comments-o"></i>Comments({{element.commentItems.length}})</button>
+            <button class="btn btn-danger" type="submit" value="submit"
+              [disabled]="!(commentForm.valid && element.id == index)">Submit</button>
+          </div>
+        </form>
+
+      </td>
+    </ng-container>
+
+    <ng-container cdkColumnDef="createdAt">
+      <th cdk-header-cell *cdkHeaderCellDef mat-sort-header>createdAt
+      </th>
+      <td cdk-cell *cdkCellDef="let element"> {{element.createdAt}} </td>
+    </ng-container>
+
+    <ng-container cdkColumnDef="delete">
+      <th cdk-header-cell *cdkHeaderCellDef> Action </th>
+      <td cdk-cell *cdkCellDef="let element;let i=index">
+        <div ngbDropdown class="d-inline-block">
+          <button class="btn" id="dropdownBasic1" ngbDropdownToggle>
+            <i class="fa fa-ellipsis-v" aria-hidden="true" style="color: black;"></i>
+          </button>
+          <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+            <button (click)="getBlogId(element, content)" class="btn btn-danger m-1" data-toggle="modal"
+              data-target="#content" type="button">Delete</button><br>
+            <button (click)="openEditModal(element)" type="button" class="btn btn-primary m-1">update blog</button>
+          </div>
+        </div>
+
+      </td>
+    </ng-container>
+
+    <tr cdk-header-row *cdkHeaderRowDef="displayedColumns"></tr>
+    <tr cdk-row *cdkRowDef="let row; columns: displayedColumns;"></tr>
+    <!-- <cdk-row class="row-2" *cdkRowDef="let row; columns: displayedColumnsRow2;"></cdk-row> -->
+  </table>
+
+
+</div>
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h2 class="modal-title mx-auto text-danger">Warning !</h2>
+  </div>
+  <div class="modal-body ">
+    <p><strong>Do you want to delete the blog ?</strong></p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" ngbAutofocus class="btn btn-danger mr-4"
+      (click)="modal.close('Close click'); delete_blog()">Yes</button>
+    <button type="button" class="btn btn-primary mr-4" (click)="modal.close('Close click')">NO</button>
+  </div>
+</ng-template>
+
+
+<ng-template #commentsmodal let-c="close" let-d="dismiss">
+  <div *ngIf="commentItemLists">
+    <div style="padding-top: 30px;padding-bottom: 15px;">
+      <h4 class="modal-title text-center">Comments
+        <!-- <a class="btn btn-danger" ngbAutofocus (click)="c.close('Close click')"
+            style="float: right;margin-right:10px">Cancel</a> -->
+        <a class="btn btn-danger" ngbAutofocus (click)="closeModal()" style="float: right;margin-right:10px">Cancel</a>
+
+      </h4>
+    </div>
+    <div *ngIf="commentItemLists.length>0" style="min-height:500px;overflow-y:scroll;padding: 25px;">
+      <table class="table table-striped">
+        <tbody>
+          <tr *ngFor="let comment of commentItemLists;let i = index">
+            <td style="border:1px solid lightgray !important;">
+              <p class="text-left">
+                {{comment.comment}}
+              </p>
+              <p>
+                <span class="pull-right">{{comment.user.firstName}}</span>
+              </p>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div *ngIf="commentItemLists.length==0">
+      <h2 class="text-center">No Comments found</h2>
+    </div>
+  </div>
+
+</ng-template>
+
+<!-- <ng-template #addblogmodal let-c="close" let-d="dismiss">
+    <app-add-blog [blogForm]="blogForm" [events]="events" [blogId]="blogId"></app-add-blog>
+
+  </ng-template>  -->

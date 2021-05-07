@@ -1,0 +1,64 @@
+  <form id="form" class="form" style="padding:25px" (ngSubmit)="onSubmit()"
+    (appCustom)="onSubmit()" [formGroup]="blogForms">
+    <div class="formdiv" >  
+      <h3 class="text-center">Add/Update Blog</h3>
+      <div>
+        <div>
+          <label><b>Title:</b></label>
+        </div>
+        <input type="text" id="title" name="title" formControlName="title"  
+        class="form-control" placeholder="Title" >
+        <div class="alert alert-danger">
+        <small class="text-danger" *ngIf="title.errors?.required">Title is required</small>
+            <small  class="text-danger" *ngIf="title.errors?.minlength">Title must have 2 characters</small>
+        
+
+          <!-- Title is required -->
+        </div>
+      </div> 
+      <div>
+        <div>
+          <label><b>Description:</b></label>
+        </div>
+        <textarea formControlName="description" type="text" class="form-control" placeholder="Description"></textarea>
+        <div class="alert alert-danger"
+        *ngIf="description.errors && (description.invalid && description.touched)">
+            <small  class="text-danger" *ngIf="description.errors?.required">Description is required</small>
+            <small  class="text-danger" *ngIf="description.errors?.minlength">Description must have 2 characters</small>
+              
+          Description is required
+        </div>
+      </div>
+      <div>
+        <div>
+          <label><b>Content:</b></label>
+        </div>
+        <textarea formControlName="content" type="text" class="form-control" placeholder="Content"></textarea>
+        <div class="alert alert-danger"
+                    *ngIf="content.errors && (content.invalid && content.touched)">
+            <small  class="text-danger" *ngIf="content.errors?.required">Content is required</small>
+            <small  class="text-danger" *ngIf="content.errors?.minlength">Content must have 2 characters</small>
+          Content is required
+        </div>
+      </div>
+      <br>
+      <div class="visible">
+        <label><b>Visible: <input formControlName="visible" type="checkbox" /></b></label>
+      </div>
+      <div>
+        <!-- <div>
+          <label><b>Files:</b></label>
+          <input multiple (change)="selectFile($event)" type="file">
+        </div> -->
+      </div>
+     
+      <div class="btndiv">
+        <div class="pull-right" style="margin-bottom: 20px;">
+          <a class="btn btn-danger" (click)="modalService.dismiss('Close click')" style="margin-right: 17px;">Cancel</a>
+          <!-- <a class="btn btn-danger" ngbAutofocus (click)="closeModal()" style="margin-right: 17px;">Cancel</a> -->
+          <button class="btn btn-success" type="submit" value="submit" [disabled]="!blogForms.valid">Submit</button>
+        </div>
+      </div>
+    </div>
+  </form>
+

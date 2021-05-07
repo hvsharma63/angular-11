@@ -1,0 +1,77 @@
+<div class="container-fluid" id="profileContainer">
+  <h2 class="text-center profile-content">Basic Information</h2>
+  <div class="container">
+    <div class="profile-container" *ngIf="!show;else edit_profile">
+      <form class="form" action="">
+        <div class="formdiv">
+          <div class="form-group">
+            <label for="">First Name</label>
+            <input type="text" class="form-control" value="{{profileDetails?.firstName}}" readonly>
+          </div>
+
+          <div class="form-group">
+            <label for="">Last Name</label>
+            <input type="text" class="form-control" value="{{profileDetails?.lastName}}" readonly>
+          </div>
+
+          <div class="form-group">
+            <label for="">Email</label>
+            <input type="text" class="form-control" value="{{profileDetails?.emailId}}" readonly>
+          </div>
+        </div>
+      </form>
+      <button class="btn btn-success" (click)="editProfile()">Edit</button>
+    </div>
+    <ng-template #edit_profile>
+      <div class="profile-container">
+
+        <form id="form" class="form" [formGroup]="profileForm" (ngSubmit)="onUpdate()">
+          <div class="formdiv">
+            <div class="form-group">
+              <label for="">First Name</label>
+              <input type="text" class="form-control" formControlName="firstName" value="{{profileDetails?.firstName}}">
+            </div>
+            <div *ngIf="profileForm?.get('firstName')">
+              <div class="alert alert-danger"
+                *ngIf="profileForm?.get('firstName')!.errors?.required &&  profileForm?.get('firstName')!.touched">
+                First Name is required
+              </div>
+              <div class="alert alert-danger" *ngIf="profileForm?.get('firstName')!.errors?.minlength">
+                Minimum Length 2 is required
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="">Last Name</label>
+              <input type="text" class="form-control" formControlName="lastName" value="{{profileDetails?.lastName}}">
+            </div>
+            <div *ngIf="profileForm?.get('lastName')">
+              <div class="alert alert-danger"
+                *ngIf="profileForm?.get('lastName')!.errors?.required &&  profileForm?.get('lastName')!.touched">
+                Last Name is required
+              </div>
+              <div class="alert alert-danger" *ngIf="profileForm?.get('lastName')!.errors?.minlength">
+                Minimum Length 2 is required
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="">Email</label>
+              <input type="text" class="form-control" formControlName="emailId" value="{{profileDetails?.emailId}}"
+                readonly>
+            </div>
+            <div class="form-group">
+              <label for="">Password</label>
+              <input type="password" class="form-control" formControlName="password" value="">
+            </div>
+            <button type="submit" [disabled]="profileForm.invalid" class="btn btn-success">Update</button>
+            <button type="button" (click)="cancelDetails()" class="btn btn-danger pull-right">Cancel</button>
+          </div>
+
+        </form>
+      </div>
+    </ng-template>
+
+  </div>
+
+</div>

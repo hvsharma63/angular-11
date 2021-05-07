@@ -1,0 +1,303 @@
+#add_blog,
+#add_allblog {
+  margin-right: 10px;
+  background-color: black;
+  color: white;
+}
+.table {
+  width: 100%;
+  margin-bottom: 1rem;
+  color: #212529;
+  box-shadow: 0px -5px 10px 10px #1715153b;
+}
+tr {
+  padding-bottom: 8px !important;
+}
+
+thead {
+  background-color: black;
+}
+
+#table {
+  margin-top: 70px;
+}
+
+th {
+  font-size: 16px;
+  padding: 16px;
+  text-align: center;
+}
+
+td {
+  font-size: 16px;
+  color: black;
+  padding: 19px;
+  padding-bottom: 25px !important;
+  border: none !important;
+  text-align: center;
+}
+
+#blog-section {
+  margin-top: 100px;
+}
+
+button {
+  font-size: 16px;
+  color: white;
+  font-weight: 700;
+  outline-color: black;
+}
+
+button:hover {
+  color: white;
+}
+
+@media (max-width: 991.98px) {
+  .showDeleteButton {
+    margin-left: 108px !important;
+  }
+  .modal-body {
+    position: relative;
+    padding: 14px !important;
+  }
+
+  div#desktop_table_view {
+    display: none !important;
+  }
+
+  div#mobile_view_blogs {
+    display: block !important;
+  }
+
+  #blog_section {
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+  #comments_text {
+    height: 50px;
+  }
+
+  button {
+    font-size: 13px;
+  }
+
+  #delte-icon > i {
+    font-size: 14px;
+  }
+  #blog_btn {
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+  #add_allblog,
+  #add_blog {
+    float: none !important;
+  }
+}
+div#mobile_view_blogs {
+  display: none;
+}
+
+div#desktop_table_view {
+  display: block;
+  margin-top: 88px;
+}
+
+@media (min-width: 2000px) {
+  th {
+    font-size: 24px;
+  }
+  td {
+    font-size: 24px;
+  }
+  #delte-icon > i {
+    font-size: 24px !important;
+  }
+  button {
+    font-size: 21px;
+  }
+  #blog_comments,
+  #blog_like {
+    font-size: 13px !important;
+  }
+}
+.modal-body {
+  position: relative;
+  padding: 27px;
+  height: 143px;
+}
+.blog-title {
+  margin-bottom: auto;
+}
+#delte-icon {
+  margin-left: auto;
+  margin-right: auto;
+  background-color: red;
+}
+
+#delte-icon > i {
+  color: white !important;
+  font-size: 16px;
+}
+
+.blog-container {
+  background-color: white;
+  padding-top: 122px;
+  height: auto;
+  width: auto;
+}
+
+.blog_desc {
+  font-size: 32px;
+  font-weight: 800;
+}
+
+#blog_like {
+  margin-right: 10px;
+  color: white;
+  background-color: #4267b2;
+}
+
+#blog_comments {
+  margin-right: 10px;
+  color: white;
+  background-color: #4267b2;
+  margin-bottom: auto;
+}
+.blog_content {
+  color: #757575;
+}
+/* LIKS */
+.btn.tooltips {
+  position: relative;
+  display: inline-block;
+  border-bottom: 1px dotted black;
+}
+
+.tooltiptext {
+  visibility: hidden;
+  width: 120px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+
+  /* Position the tooltip */
+  position: absolute;
+  z-index: 1;
+  visibility: visible;
+}
+
+/* Commets */
+.btn.tooltips2 {
+  position: relative;
+  display: inline-block;
+  border-bottom: 1px dotted black;
+}
+
+.tooltiptext2 {
+  visibility: hidden;
+  width: 200px;
+  background-color: white;
+  color: black;
+  text-align: center;
+  padding: 5px 0;
+  border: 1px solid lightgrey;
+
+  /* Position the tooltip */
+  position: absolute;
+  z-index: 1;
+  visibility: visible;
+}
+
+.modal-body2 {
+  padding: 29px;
+
+  padding-bottom: 66px;
+}
+
+.showDeleteButton {
+  width: 136px;
+  margin-left: -15px;
+  background-color: white;
+  color: black;
+  text-align: left;
+  /* border-radius: 6px; */
+  padding: 18px 16px;
+  position: absolute;
+  border: 1px solid lightgray;
+  z-index: 1;
+  visibility: visible;
+}
+
+/* Accordion */
+
+.accordion {
+  background-color: white;
+  color: #444;
+  cursor: pointer;
+  /* padding: 18px; */
+  /* padding-left: 5px; */
+  width: 50%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 15px;
+  transition: 0.4s;
+}
+
+.active,
+.accordion:hover {
+  background-color: white;
+}
+
+.accordion:after {
+  content: "\02C5";
+  color: #777;
+  font-weight: bold;
+  float: right;
+  margin-right: 10px;
+}
+
+.active:after {
+  content: "\02C4";
+}
+
+.panel {
+  padding: 0 18px;
+  background-color: white;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.2s ease-out;
+}
+
+#main-blog-section {
+  margin-bottom: 16px;
+  padding: 16px;
+  border: 1px solid lightgray;
+  box-shadow: 0px 2px 7px 0px black;
+}
+
+#blog-header {
+  border-bottom: 1px solid lightgray;
+  padding-bottom: 13px;
+}
+
+.blog-username {
+  padding-top: 10px;
+}
+
+#tooltip-section {
+  padding-top: 25px;
+  padding-bottom: 25px;
+}
+
+#blog_table_section {
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: 20px;
+}
+
+.visible {
+  margin-top: 5px;
+}

@@ -1,0 +1,111 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+  <a class="navbar-brand" href="#">Angular
+  </a>
+  <button class="navbar-toggler" type="button" (click)="toggle()" data-toggle="collapse" data-target="#navbarText"
+    aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarText" *ngIf="show_nav_mobile">
+    <ul class="navbar-nav mr-auto">
+    </ul>
+    <span class="navbar-text">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" routerLink="/home">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/blog">Blog</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/home">Contact</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/home">About</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink">
+            <i style="margin-right: 10px;" class="fa fa-user"></i>Welcome
+            <span *ngIf="userName">
+              {{userName}}
+            </span>
+            <span class="caret"></span> </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+        <li class="cursor"><a routerLink="/profile-details">My Profile</a></li>
+        <li class="cursor"><a class="cursor" (click)="logout()">Logout</a></li>
+  </div>
+  </li>
+  </ul>
+
+  </span>
+  </div>
+
+  <div class="navbar-collapse" id="navbarText" *ngIf="!show_nav_mobile && show_nav_desk">
+    <ul class="navbar-nav mr-auto">
+    </ul>
+    <span class="navbar-text">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" routerLink="/home">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/blog">Blog</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/home">Contact</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/home">About</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+            <i style="margin-right: 10px;" class="fa fa-user"></i>Welcome
+            <span *ngIf="userName">
+              {{userName}}
+            </span>
+            <span class="caret"></span> </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+        <li class="cursor"><a routerLink="/profile-details" routerLinkActive="router-link-active">My
+            Profile</a>
+        </li>
+        <li class="cursor"><a class="cursor" (click)="logout()">Logout</a></li>
+  </div>
+  </li>
+  </ul>
+
+  </span>
+  </div>
+</nav>
+
+
+<!-- <nav class="navbar navbar-inverse fixed-top">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" routerLink="/home">Angular</a>
+      <div class="pull-right" id="toggle_bar"> 
+         <button class="backgound-color" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <i class="bar" class="fa fa-bars"></i>
+      </button></div>    
+    </div>
+
+<div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="nav navbar-nav navbar-right">
+      <li id="home"><a routerLink="/home">Home</a></li>
+      <li id="home"><a routerLink="/blog">Blog</a></li>
+      <li id="home"><a routerLink="/home">Contact</a></li>
+      <li id="home"><a routerLink="/home">About</a></li>
+      <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" routerLink="/home"><i
+            style="margin-right: 10px;" class="fa fa-user"></i>Welcome
+          <span *ngIf="userName" >
+            {{userName}}
+          </span>
+          <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li class="cursor"><a routerLink="/profile-details" >My Profile</a></li>
+          <li class="cursor"><a class="cursor" (click)="logout()">Logout</a></li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+  </div>
+</nav> -->

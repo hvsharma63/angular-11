@@ -1,0 +1,17 @@
+li.nav-item.dropdown:hover .dropdown-menu {
+  display: block;
+  background-color: black;
+  color: white;
+  text-align: center;
+  padding: 15px;
+  border-radius: 9px;
+}
+
+li.nav-item.dropdown > li:hover .dropdown-menu {
+  display: block;
+  background-color: black;
+  color: white;
+  text-align: center;
+  padding: 15px;
+  border-radius: 9px;
+}

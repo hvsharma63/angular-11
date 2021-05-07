@@ -1,0 +1,12 @@
+#profileContainer {
+  padding-top: 200px;
+}
+.profile-container {
+  background-color: #86868687;
+  height: auto;
+  padding: 50px;
+  border-radius: 10px;
+}
+.profile-content {
+  padding-bottom: 10px;
+}

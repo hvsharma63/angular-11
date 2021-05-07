@@ -1,0 +1,50 @@
+<div class="container-fluid" id="profileContainer">
+    <h2 class="text-center profile-content">Edit Information</h2>
+    <div class="container">
+       <div class="profile-container" *ngIf="profileForm">
+          <form id="form" class="form" [formGroup]="profileForm" (ngSubmit)="onUpdate()"> 
+             <div class="formdiv" >
+                <div class="form-group">
+                   <label for="">First Name</label>
+                   <input type="text" class="form-control" formControlName="firstName" value="{{profileDetails?.firstName}}">
+                </div>
+                <div *ngIf="profileForm?.get('firstName')">
+                  <div class="alert alert-danger"
+                  *ngIf="profileForm?.get('firstName')!.errors?.required &&  profileForm?.get('firstName')!.touched">
+                  First Name is required
+               </div>
+               <div class="alert alert-danger" *ngIf="profileForm?.get('firstName')!.errors?.minlength">
+                  Minimum Length 2 is required
+               </div>
+                </div>
+               
+                <div class="form-group">
+                   <label for="">Last Name</label>
+                   <input type="text" class="form-control" formControlName="lastName" value="{{profileDetails?.lastName}}">
+                </div>
+                <div *ngIf="profileForm?.get('lastName')">
+                  <div class="alert alert-danger"
+                  *ngIf="profileForm?.get('lastName')!.errors?.required &&  profileForm?.get('lastName')!.touched">
+                  Last Name is required
+               </div>
+               <div class="alert alert-danger" *ngIf="profileForm?.get('lastName')!.errors?.minlength">
+                  Minimum Length 2 is required
+               </div>
+                </div>
+              
+                <div class="form-group">
+                   <label for="">Email</label>
+                   <input type="text" class="form-control" formControlName="emailId" value="{{profileDetails?.emailId}}" readonly>
+                </div>
+                <div class="form-group">
+                  <label for="">Password</label>
+                  <input type="password" class="form-control" formControlName="password" value="">
+               </div>
+                <button type="submit" routerLink="/edit-profile" class="btn btn-success" [disabled]="!profileForm.valid">Update</button>
+                <button type="button" routerLink="/profile-details" class="btn btn-danger pull-right">Cancel</button>
+             </div>
+          
+          </form>
+       </div>
+    </div>
+ </div>

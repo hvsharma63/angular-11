@@ -1,0 +1,65 @@
+<div class="container-fluid">
+  <div class="container" id="form-container">
+    <div class="">
+      <form id="form" class="form" [formGroup]="signUpForm" (ngSubmit)="onSubmit()">
+        <div class="formdiv">
+          <h3 class="text-center">Sign-Up</h3>
+          <div>
+            <div>
+              <label><b>First Name:</b>
+              </label>
+            </div>
+            <input formControlName="firstName" type="text" class="form-control" placeholder="First Name" required>
+            <div class="alert alert-danger"
+              *ngIf="signUpForm.get('firstName')!.errors?.required &&  signUpForm.get('firstName')!.touched">First Name
+              is required</div>
+            <div class="alert alert-danger" *ngIf="signUpForm.get('firstName')!.errors?.minlength">Minimum Length 2 is
+              required</div>
+          </div>
+          <div>
+            <div>
+              <label><b>Last Name:</b>
+              </label>
+            </div>
+            <input formControlName="lastName" type="text" class="form-control" placeholder="Last Name" required>
+            <div class="alert alert-danger"
+              *ngIf="signUpForm.get('lastName')!.errors?.required &&  signUpForm.get('lastName')!.touched">Last Name is
+              required</div>
+            <div class="alert alert-danger" *ngIf="signUpForm.get('lastName')!.errors?.minlength">Minimum Length 2 is
+              required</div>
+          </div>
+          <div>
+            <div>
+              <label><b>Email:</b>
+              </label>
+            </div>
+            <input formControlName="emailId" type="email" class="form-control" placeholder="Email" required>
+            <div
+              *ngIf="!signUpForm.get('emailId')!.errors?.pattern && signUpForm.get('emailId')!.invalid && signUpForm.get('emailId')!.touched"
+              class="alert alert-danger">Email is required</div>
+            <div class="alert alert-danger" *ngIf="signUpForm.get('emailId')!.errors?.pattern">Enter valid email</div>
+          </div>
+          <div>
+            <div>
+              <label><b>Password:</b>
+              </label>
+            </div>
+            <input formControlName="password" type="password" class="form-control" placeholder="Password" required>
+            <div
+              *ngIf="!signUpForm.get('password')!.errors?.pattern && signUpForm.get('password')!.invalid && signUpForm.get('password')!.touched"
+              class="alert alert-danger">Password is required</div>
+            <div class="alert alert-danger" *ngIf="signUpForm.get('password')!.errors?.pattern">Password must be minimum
+              length 7. Password should be 1 capital letter,1 symbol,1 number values.</div>
+          </div>
+          <div class="btndiv">
+            <div class="pull-left"> <a class="btn btn-danger" type="submit" routerLink="/login">Login</a>
+            </div>
+            <div class="pull-right">
+              <button class="btn btn-danger" type="submit" value="submit" [disabled]="!signUpForm.valid">Submit</button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

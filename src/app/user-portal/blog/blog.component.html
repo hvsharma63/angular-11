@@ -1,0 +1,265 @@
+<div class="container-fluid blog-container">
+  <div id="blog_section">
+
+
+    <h1 class="text-center">
+      <p><b>Welcome to Blog Section</b></p>
+    </h1>
+
+
+    <div id="blog_btn" class="text-center">
+      <button id="add_allblog" class="btn pull-right" routerLink="/users-blog">View All Users Blog</button>
+      <!-- <button id="add_blog" class="btn pull-right" (click)="addBlog(addblogmodal)">Add Blog</button> -->
+      <button id="add_blog" class="btn pull-right" (click)="addBlog()">Add Blog</button>
+    </div>
+    
+
+    <mat-form-field appearance="legacy">
+
+      <mat-label>Choose Date Range</mat-label>
+    
+      <mat-date-range-input [rangePicker]="picker" [formGroup]="dateRange">
+        <input matStartDate formControlName="start" placeholder="Start Date">
+        <input matEndDate formControlName="end" placeholder="End Date" (dateChange)="changeInDate()" >
+      </mat-date-range-input>
+    
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    
+      <mat-date-range-picker #picker></mat-date-range-picker>
+    
+    </mat-form-field>
+  </div>
+  <div>
+  
+</div>
+
+<app-table [dataSource]="dataSource" (deleteEmitter)="deleteBlog($event)" (editBlogEmitter)="editBlog($event)"></app-table>
+
+<!-- <ng-template #addblogmodal let-c="close" let-d="dismiss">
+  <app-add-blog [blogForm]="blogForm" [events]="events" [blogId]="blogId" (addBlogEmitter)="blogLike($event)"></app-add-blog>
+
+</ng-template>  -->
+
+ <!-- <div id="desktop_table_view">
+    <table class="table table-bordered" cdk-table [dataSource]="dataSource">
+      <ng-container cdkColumnDef="title">
+        <th cdk-header-cell *cdkHeaderCellDef (click)="adjustSort('title')"> Title
+        </th>
+        <td cdk-cell *cdkCellDef="let element"> {{element.title}} </td>
+      </ng-container>
+
+      <ng-container cdkColumnDef="description">
+        <th cdk-header-cell *cdkHeaderCellDef (click)="adjustSort('description')">Description
+        </th>
+        <td cdk-cell *cdkCellDef="let element"> {{element.description}} </td>
+      </ng-container>
+
+      <ng-container cdkColumnDef="content">
+        <th cdk-header-cell *cdkHeaderCellDef (click)="adjustSort('content')">Content
+        </th>
+        <td cdk-cell *cdkCellDef="let element"> {{element.content}} </td>
+      </ng-container>
+
+      <ng-container cdkColumnDef="like">
+        <th cdk-header-cell *cdkHeaderCellDef (click)="adjustSort('likes')">Likes</th>
+        <td cdk-cell *cdkCellDef="let element;let i=index"> <button class="btn tooltips" (click)="blogLike(element.id)"
+            (mouseenter)="getlikedusername(element.likeItems,i)" id="blog_like" [ngbTooltip]="userlikes"><i
+              class="fa fa-thumbs-up"></i>
+            Like({{element.likeItems.length}})</button>
+          <ng-template #userlikes>
+            <span *ngIf="likeItems.length>0;else nouserliked">
+              <span *ngFor="let likeItem of likeItems | sort">
+                <span>
+                  {{likeItem}}
+                  <br>
+                </span>
+              </span>
+            </span>
+
+          </ng-template>
+          <ng-template #nouserliked>No User Liked</ng-template>
+        </td>
+      </ng-container>
+
+      <ng-container cdkColumnDef="comment">
+        <th cdk-header-cell *cdkHeaderCellDef> Comments </th>
+        <td cdk-cell *cdkCellDef="let element;let i=index">
+          <form id="form" class="form" [formGroup]="commentForm" (ngSubmit)="oncommentSubmit(element.id)">
+            <div class="form-group">
+              <textarea class="form-control" (keypress)="commentinput(i)" formControlName="comment" id="comments_text"
+                cols="30" rows="5"></textarea>
+            </div>
+            <div>
+              <ng-template #nousercomments>No User Commented</ng-template>
+              <ng-template #usercomments>
+                <span *ngIf="commentItems.length>0;else nousercomments">
+                  <span *ngFor="let commentItem of commentItems">
+                    <span>
+                      {{commentItem.user.firstName}}<br>
+                    </span>
+                  </span>
+                </span>
+              </ng-template>
+              <button class="btn tooltips2" type="button" (click)="commentModal(element.commentItems,commentsmodal)"
+                (mouseenter)="getCommentUsernames(element.commentItems,i)" [ngbTooltip]="usercomments"
+                id="blog_comments"><i class="fa fa-comments-o"></i>Comments({{element.commentItems.length}})</button>
+              <button class="btn btn-danger" type="submit" value="submit"
+                [disabled]="!(commentForm.valid && i == index)">Submit</button>
+            </div>
+          </form>
+
+        </td>
+      </ng-container>
+
+      <ng-container cdkColumnDef="createdAt">
+        <th cdk-header-cell *cdkHeaderCellDef (click)="adjustSort('createdAt')">createdAt
+        </th>
+        <td cdk-cell *cdkCellDef="let element"> {{element.createdAt}} </td>
+      </ng-container>
+
+      <ng-container cdkColumnDef="delete">
+        <th cdk-header-cell *cdkHeaderCellDef> Action </th>
+        <td cdk-cell *cdkCellDef="let element;let i=index">
+          <button class="btn btn-default" (click)="showDeleteBtn(i)"><i class="fa fa-ellipsis-v"
+              style="color: grey;"></i></button>
+          <div *ngIf="index == i">
+            <div *ngIf="showDeleteButton" class="showDeleteButton">
+              <p (click)="assignblogid(element.id,i,delteblogmodal,'')"
+                style="text-decoration: none;color: black;cursor:pointer">Delete<i style="margin-left: 30px;"
+                  class="fa fa-trash"></i></p>
+              <p (click)="assignblogid(element.id,i,addblogmodal,'update')"
+                style="text-decoration: none;color: black;cursor:pointer">Update<i style="margin-left: 28px;"
+                  class="fa fa-refresh"></i></p>
+            </div>
+          </div>
+
+        </td>
+      </ng-container>
+
+      <tr cdk-header-row *cdkHeaderRowDef="displayedColumns"></tr>
+      <tr cdk-row *cdkRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+
+  </div> -->
+
+  
+
+  <!-- <ng-template #delteblogmodal let-c="close" let-d="dismiss">
+    <div class="modal-body">
+      <h3 style="    padding-top: 14px;
+      "> Are you sure want to delete? </h3>
+      <div class="w-100">
+        <button type="button" class="btn btn-danger pull-right" (click)="closeModal()">No</button>
+        <button type="button" class="btn btn-success pull-right" data-dismiss="modal" style="margin-right: 10px;"
+          (click)="delete_blog()">Yes</button>
+      </div>
+    </div>
+  </ng-template>
+
+  <ng-template #commentsmodal let-c="close" let-d="dismiss">
+    <div *ngIf="commentItemLists">
+      <div style="padding-top: 30px;padding-bottom: 15px;">
+        <h4 class="modal-title text-center">Comments
+          <a class="btn btn-danger" ngbAutofocus (click)="closeModal()"
+            style="float: right;margin-right:10px">Cancel</a>
+        </h4>
+      </div>
+      <div *ngIf="commentItemLists.length>0" style="min-height:500px;overflow-y:scroll;padding: 25px;">
+        <table class="table table-striped">
+          <tbody>
+            <tr *ngFor="let comment of commentItemLists;let i = index">
+              <td style="border:1px solid lightgray !important;">
+                <p class="text-left">
+                  {{comment.comment}}
+                </p>
+                <p>
+                  <span class="pull-right">{{comment.user.firstName}}</span>
+                </p>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div *ngIf="commentItemLists.length==0">
+        <h2 class="text-center">No Comments found</h2>
+      </div>
+    </div> 
+
+   </ng-template> -->
+
+ 
+
+  <!-- <div class="container-fluid" id="mobile_view_blogs">
+    <div class="row" id="blog_table_section">
+      <ng-container *ngFor="let blog of blogLists;let i =index">
+        <div id="main-blog-section" class="col-md-12">
+
+          <h3 id="blog-header"><a>{{blog.title}}</a><button class="btn btn-default pull-right"
+              (click)="showDeleteBtn(i)"><i style="color: grey;">...</i></button></h3>
+          <ng-container *ngIf="index == i">
+            <div *ngIf="showDeleteButton" class="showDeleteButton">
+              <p (click)="assignblogid(blog.id,i,delteblogmodal,'')"
+                style="text-decoration: none;color: black;cursor:pointer">Delete<i style="margin-left: 30px;"
+                  class="fa fa-trash"></i></p>
+              <p (click)="assignblogid(blog.id,i,addblogmodal,'update')"
+                style="text-decoration: none;color: black;cursor:pointer">Update<i style="margin-left: 28px;"
+                  class="fa fa-refresh"></i></p>
+            </div>
+          </ng-container>
+                      
+          <div>
+            <span class="blog-username">{{userName}} </span>
+            <span class="accordion pull-right" (click)="toggleAccordian($event, i)"></span>
+            <div class="panel">
+              <div id="tooltip-section">
+                <button class="btn tooltips" (click)="blogLike(blog.id)"
+                  (mouseenter)="getlikedusername(blog.likeItems,i)" id="blog_like" [ngbTooltip]="userlikes"><i
+                    class="fa fa-thumbs-up"></i>
+                  Like({{blog.likeItems.length}})</button>
+                <ng-template #userlikes>
+                  <span *ngIf="likeItems.length>0;else nouserliked">
+                    <span *ngFor="let likeItem of likeItems | sort">
+                      <span>
+                        {{likeItem}}
+                        <br>
+                      </span>
+                    </span>
+                  </span>
+                </ng-template>
+                <ng-template #nouserliked>No User Liked</ng-template>
+              </div>
+
+              <form id="form" class="form" [formGroup]="commentForm" (ngSubmit)="oncommentSubmit(blog.id)">
+                <div class="form-group">
+                  <textarea class="form-control" (keypress)="commentinput(i)" formControlName="comment"
+                    id="comments_text" cols="30" rows="5"></textarea>
+                </div>
+                <div>
+                  <ng-template #nousercomments>No User Commented</ng-template>
+                  <ng-template #usercomments>
+                    <span *ngIf="commentItems.length>0;else nousercomments">
+                      <span *ngFor="let commentItem of commentItems">
+                        <span>
+                          {{commentItem.user.firstName}}<br>
+                        </span>
+                      </span>
+                    </span>
+                  </ng-template>
+                  <button class="btn tooltips2" type="button" (click)="commentModal(blog.commentItems,commentsmodal)"
+                    (mouseenter)="getCommentUsernames(blog.commentItems,i)" [ngbTooltip]="usercomments"
+                    id="blog_comments"><i class="fa fa-comments-o"></i>Comments({{blog.commentItems.length}})</button>
+                  <button class="btn btn-danger" type="submit" value="submit"
+                    [disabled]="!(commentForm.valid && i == index)">Submit</button>
+                </div>
+              </form>
+            </div>
+          </div>
+
+
+        </div>
+      </ng-container>
+    </div>
+  </div>   -->
+
+ 
+  

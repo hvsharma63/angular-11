@@ -1,0 +1,60 @@
+/* .container {
+  margin-top: 80px;
+}
+
+.btndiv {
+  padding-top: 20px;
+}
+.btn-danger {
+  padding: 5px;
+  font-size: 12px;
+}
+.form {
+  margin-left: auto;
+  margin-right: auto;
+  border-color: black;
+  width: 400px;
+}
+.formdiv {
+  padding: 44px;
+  border: 1px solid #898181;
+  background: #c2bfbbd1;
+  border-radius: 14px;
+}
+
+.tdiv {
+  margin-top: 30px;
+  margin-right: 25px;
+  margin-left: 25px;
+}
+
+.user {
+  padding-top: 15px;
+}
+
+@media screen and (max-width: 442.98px) {
+  .form {
+    width: auto;
+  }
+}
+.pull-right {
+  float: right;
+}
+
+input.ng-invalid,
+textarea.ng-invalid {
+  border-left: 5px solid red;
+}
+
+input.ng-valid,
+textarea.ng-valid {
+  border-left: 5px solid green;
+}
+
+.error {
+  color: red;
+}
+
+#form-container {
+  margin-top: 237px;
+} */
